@@ -1,0 +1,29 @@
+@model MorMorsBageruMVC.Models.ReceptRad
+
+@{
+    ViewData["Title"] = "Skapa ReceptRad";
+}
+
+<h1>Lägg till Recept-rad</h1>
+
+<form asp-action="Create">
+
+    <div class="form-group">
+        <label>Recept ID</label>
+        <input asp-for="ReceptId" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Råvara ID</label>
+        <input asp-for="RåvaraId" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Mängd kg</label>
+        <input asp-for="MängdKg" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-success">Spara</button>
+    <a asp-action="Index" class="btn btn-secondary">Tillbaka</a>
+
+</form>

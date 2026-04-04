@@ -1,0 +1,32 @@
+@model MorMorsBageruMVC.Models.Recept
+
+@{
+    ViewData["Title"] = "Receptdetaljer";
+}
+
+<h1>Receptdetaljer</h1>
+
+<p><strong>Produkt:</strong> @Model.Produkt?.Namn</p>
+
+<h3>Ingredienser</h3>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Råvara</th>
+            <th>Mängd (kg)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Rader)
+        {
+            <tr>
+                <td>@item.Råvara.Namn</td>
+                <td>@item.MängdKg</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Edit" asp-route-id="@Model.ReceptId" class="btn btn-primary">Redigera</a>
+<a asp-action="Index" class="btn btn-secondary">Tillbaka</a>

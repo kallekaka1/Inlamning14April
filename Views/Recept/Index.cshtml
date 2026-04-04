@@ -1,0 +1,35 @@
+@model IEnumerable<MorMorsBageruMVC.Models.Recept>
+
+@{
+    ViewData["Title"] = "Recept";
+}
+
+<h1>Recept</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Skapa nytt recept</a>
+</p>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Produkt</th>
+            <th>Antal ingredienser</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var r in Model)
+        {
+            <tr>
+                <td>@r.Produkt?.Namn</td>
+                <td>@r.Rader.Count</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@r.ReceptId">Detaljer</a> |
+                    <a asp-action="Edit" asp-route-id="@r.ReceptId">Redigera</a> |
+                    <a asp-action="Delete" asp-route-id="@r.ReceptId">Ta bort</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,24 @@
+@model MorMorsBageruMVC.Models.Produkt
+
+@{
+    ViewData["Title"] = "Skapa Produkt";
+}
+
+<h1>Skapa Produkt</h1>
+
+<form asp-action="Create">
+
+    <div class="form-group">
+        <label>Namn</label>
+        <input asp-for="Namn" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Kategori</label>
+        <input asp-for="Kategori" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-success">Spara</button>
+    <a asp-action="Index" class="btn btn-secondary">Tillbaka</a>
+
+</form>

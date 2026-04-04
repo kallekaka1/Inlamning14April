@@ -1,0 +1,41 @@
+@model MorMorsBageruMVC.Models.Råvara
+
+@{
+    ViewData["Title"] = "Råvarudetaljer";
+}
+
+<h1>Råvarudetaljer</h1>
+
+<table class="table">
+    <tr>
+        <th>Artikelnummer</th>
+        <td>@Model.Artikelnummer</td>
+    </tr>
+    <tr>
+        <th>Namn</th>
+        <td>@Model.Namn</td>
+    </tr>
+    <tr>
+        <th>Pris per kg</th>
+        <td>@Model.PrisPerKg</td>
+    </tr>
+    <tr>
+        <th>Leverantör</th>
+        <td>@Model.Leverantör?.Namn</td>
+    </tr>
+    <tr>
+        <th>Lager</th>
+        <td>@Model.Lager?.MängdKg kg</td>
+    </tr>
+</table>
+
+<h3>Ingår i recept:</h3>
+<ul>
+    @foreach (var rr in Model.ReceptRader)
+    {
+        <li>@rr.Recept.Produkt.Namn – @rr.MängdKg kg</li>
+    }
+</ul>
+
+<a asp-action="Edit" asp-route-id="@Model.RåvaraId" class="btn btn-primary">Redigera</a>
+<a asp-action="Index" class="btn btn-secondary">Tillbaka</a>

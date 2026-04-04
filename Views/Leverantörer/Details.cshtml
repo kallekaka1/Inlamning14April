@@ -1,0 +1,49 @@
+@model MorMorsBageruMVC.Models.Leverantör
+
+@{
+    ViewData["Title"] = "Detaljer";
+}
+
+<h1>Leverantör – Detaljer</h1>
+
+<table class="table">
+    <tr>
+        <th>Namn</th>
+        <td>@Model.Namn</td>
+    </tr>
+    <tr>
+        <th>Adress</th>
+        <td>@Model.Adress</td>
+    </tr>
+    <tr>
+        <th>Kontaktperson</th>
+        <td>@Model.Kontaktperson</td>
+    </tr>
+    <tr>
+        <th>Telefon</th>
+        <td>@Model.Telefon</td>
+    </tr>
+    <tr>
+        <th>E-post</th>
+        <td>@Model.Epost</td>
+    </tr>
+</table>
+
+<h3>Råvaror</h3>
+<ul>
+    @foreach (var r in Model.Råvaror)
+    {
+        <li>@r.Namn (@r.Artikelnummer)</li>
+    }
+</ul>
+
+<h3>Inköp</h3>
+<ul>
+    @foreach (var i in Model.Inköp)
+    {
+        <li>@i.Datum.ToShortDateString() – @i.InköpId</li>
+    }
+</ul>
+
+<a asp-action="Edit" asp-route-id="@Model.LeverantörId" class="btn btn-primary">Redigera</a>
+<a asp-action="Index" class="btn btn-secondary">Tillbaka</a>

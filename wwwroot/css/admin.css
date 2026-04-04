@@ -1,0 +1,159 @@
+/* -------------
+   GLOBAL DARK THEME
+--------------*/
+body {
+    background: #1e1f26;
+    color: #e9e9e9;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Smooth animation */
+* {
+    transition: .15s ease-in-out;
+}
+
+/* -------------
+   SIDEBAR
+--------------*/
+.sidebar {
+    width: 240px;
+    height: 100vh;
+    background: #111219;
+    padding: 25px 20px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    border-right: 1px solid #2b2c33;
+}
+
+.sidebar .logo {
+    font-size: 20px;
+    margin-bottom: 25px;
+    color: #fff;
+    font-weight: 600;
+}
+
+.sidebar nav a {
+    display: block;
+    padding: 12px 15px;
+    margin-bottom: 8px;
+    color: #d5d5d5;
+    border-radius: 8px;
+}
+
+.sidebar nav a:hover {
+    background: #2a2b32;
+    color: #fff;
+    transform: translateX(4px);
+}
+
+.sidebar nav a i {
+    margin-right: 10px;
+}
+
+/* -------------
+   MAIN CONTENT
+--------------*/
+.content {
+    margin-left: 240px;
+    padding: 35px;
+}
+
+/* -------------
+   CARDS
+--------------*/
+.card {
+    background: #2a2b32;
+    padding: 20px;
+    border-radius: 12px;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,.25);
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 20px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* -------------
+   TABLES
+--------------*/
+table {
+    width: 100%;
+    background: #2b2c33;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+table thead {
+    background: #3a3b44;
+}
+
+table th, table td {
+    padding: 14px;
+}
+
+table tr:nth-child(even) {
+    background: #26272f;
+}
+
+table tr:hover {
+    background: #32333c;
+}
+
+/* -------------
+   BUTTONS
+--------------*/
+.btn {
+    padding: 8px 14px;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 14px;
+    display: inline-block;
+}
+
+.btn-primary { background: #4a90e2; }
+.btn-success { background: #27ae60; }
+.btn-danger  { background: #c0392b; }
+.btn-secondary { background: #7f8c8d; }
+
+.btn:hover {
+    opacity: .9;
+    transform: translateY(-2px);
+}
+
+/* -------------
+   FORMS
+--------------*/
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    border-radius: 6px;
+    background: #1d1e24;
+    border: 1px solid #3a3b44;
+    color: white;
+}
+
+input:focus, select:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 0 7px rgba(74,144,226,.4);
+}
+
+/* -------------
+   ALERTS
+--------------*/
+.alert {
+    padding: 12px 18px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.alert-success { background: #27ae60; color: #fff; }
+.alert-danger { background: #c0392b; color: #fff; }
+.alert-info { background: #2980b9; color: #fff; }

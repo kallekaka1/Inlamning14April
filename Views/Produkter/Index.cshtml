@@ -1,0 +1,37 @@
+@model IEnumerable<MorMorsBageruMVC.Models.Produkt>
+
+@{
+    ViewData["Title"] = "Produkter";
+}
+
+<h1>Produkter</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Skapa ny produkt</a>
+</p>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Namn</th>
+            <th>Kategori</th>
+            <th>Har Recept?</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Model)
+        {
+            <tr>
+                <td>@p.Namn</td>
+                <td>@p.Kategori</td>
+                <td>@(p.Recept != null ? "Ja" : "Nej")</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@p.ProduktId">Detaljer</a> |
+                    <a asp-action="Edit" asp-route-id="@p.ProduktId">Redigera</a> |
+                    <a asp-action="Delete" asp-route-id="@p.ProduktId">Ta bort</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

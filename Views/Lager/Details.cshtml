@@ -1,0 +1,21 @@
+@model MorMorsBageruMVC.Models.Lager
+
+@{
+    ViewData["Title"] = "Lagerdetaljer";
+}
+
+<h1>Lagerdetaljer</h1>
+
+<table class="table">
+    <tr>
+        <th>Råvara</th>
+        <td>@Model.Råvara?.Namn</td>
+    </tr>
+    <tr>
+        <th>Mängd</th>
+        <td>@Model.MängdKg kg</td>
+    </tr>
+</table>
+
+<a asp-action="Edit" asp-route-id="@Model.RåvaraId" class="btn btn-primary">Redigera</a>
+<a asp-action="Index" class="btn btn-secondary">Tillbaka</a>

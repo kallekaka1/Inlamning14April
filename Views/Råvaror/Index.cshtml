@@ -1,0 +1,41 @@
+@model IEnumerable<MorMorsBageruMVC.Models.Råvara>
+
+@{
+    ViewData["Title"] = "Råvaror";
+}
+
+<h1>Råvaror</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Skapa ny råvara</a>
+</p>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Artikelnummer</th>
+            <th>Namn</th>
+            <th>Pris/kg</th>
+            <th>Leverantör</th>
+            <th>Lager (kg)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var r in Model)
+        {
+            <tr>
+                <td>@r.Artikelnummer</td>
+                <td>@r.Namn</td>
+                <td>@r.PrisPerKg</td>
+                <td>@r.Leverantör?.Namn</td>
+                <td>@r.Lager?.MängdKg</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@r.RåvaraId">Detaljer</a> |
+                    <a asp-action="Edit" asp-route-id="@r.RåvaraId">Redigera</a> |
+                    <a asp-action="Delete" asp-route-id="@r.RåvaraId">Ta bort</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,80 @@
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<h1>Admin Dashboard</h1>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Tabell</th>
+            <th>Poster</th>
+            <th>Öppna</th>
+            <th>Skapa ny</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Leverantörer</td>
+            <td>@Model.Leverantörer</td>
+            <td><a class="btn btn-sm btn-primary" asp-controller="Leverantörer" asp-action="Index">Visa</a></td>
+            <td><a class="btn btn-sm btn-success" asp-controller="Leverantörer" asp-action="Create">Ny</a></td>
+        </tr>
+
+        <tr>
+            <td>Råvaror</td>
+            <td>@Model.Råvaror</td>
+            <td><a class="btn btn-sm btn-primary" asp-controller="Råvaror" asp-action="Index">Visa</a></td>
+            <td><a class="btn btn-sm btn-success" asp-controller="Råvaror" asp-action="Create">Ny</a></td>
+        </tr>
+
+        <tr>
+            <td>Produkter</td>
+            <td>@Model.Produkter</td>
+            <td><a class="btn btn-sm btn-primary" asp-controller="Produkter" asp-action="Index">Visa</a></td>
+            <td><a class="btn btn-sm btn-success" asp-controller="Produkter" asp-action="Create">Ny</a></td>
+        </tr>
+
+        <tr>
+            <td>Recept</td>
+            <td>@Model.Recept</td>
+            <td><a class="btn btn-sm btn-primary" asp-controller="Recept" asp-action="Index">Visa</a></td>
+            <td><a class="btn btn-sm btn-success" asp-controller="Recept" asp-action="Create">Ny</a></td>
+        </tr>
+
+        <tr>
+            <td>ReceptRader</td>
+            <td>@Model.ReceptRader</td>
+            <td><a class="btn btn-sm btn-primary" asp-controller="ReceptRader" asp-action="Index">Visa</a></td>
+            <td><a class="btn btn-sm btn-success" asp-controller="ReceptRader" asp-action="Create">Ny</a></td>
+        </tr>
+
+        <tr>
+            <td>Lager</td>
+            <td>@Model.Lager</td>
+            <td><a class="btn btn-sm btn-primary" asp-controller="Lager" asp-action="Index">Visa</a></td>
+            <td><a class="btn btn-sm btn-light disabled">N/A</a></td>
+        </tr>
+
+        <tr>
+            <td>Inköp</td>
+            <td>@Model.Inköp</td>
+            <td><a class="btn btn-sm btn-primary" asp-controller="Inköp" asp-action="Index">Visa</a></td>
+            <td><a class="btn btn-sm btn-success" asp-controller="Inköp" asp-action="Create">Ny</a></td>
+        </tr>
+
+        <tr>
+            <td>InköpsRader</td>
+            <td>@Model.InköpsRader</td>
+            <td><a class="btn btn-sm btn-primary" asp-controller="InköpsRader" asp-action="Index">Visa</a></td>
+            <td><a class="btn btn-sm btn-success" asp-controller="InköpsRader" asp-action="Create">Ny</a></td>
+        </tr>
+
+        <tr>
+            <td>Leverantör ↔ Råvara</td>
+            <td>@Model.LeverantörRåvara</td>
+            <td><a class="btn btn-sm btn-primary" asp-controller="LeverantörRåvara" asp-action="Index">Visa</a></td>
+            <td><a class="btn btn-sm btn-success" asp-controller="LeverantörRåvara" asp-action="Create">Ny</a></td>
+        </tr>
+    </tbody>
+</table>

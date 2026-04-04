@@ -1,0 +1,48 @@
+@model MorMorsBageruMVC.Models.Produkt
+
+@{
+    ViewData["Title"] = "Produktdetaljer";
+}
+
+<h1>Produktdetaljer</h1>
+
+<table class="table">
+    <tr>
+        <th>Namn</th>
+        <td>@Model.Namn</td>
+    </tr>
+    <tr>
+        <th>Kategori</th>
+        <td>@Model.Kategori</td>
+    </tr>
+</table>
+
+@if (Model.Recept == null)
+{
+    <p class="text-warning">Inget recept kopplat.</p>
+}
+else
+{
+    <h3>Recept</h3>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Råvara</th>
+                <th>Mängd (kg)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var r in Model.Recept.Rader)
+            {
+                <tr>
+                    <td>@r.Råvara.Namn</td>
+                    <td>@r.MängdKg</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<a asp-action="Edit" asp-route-id="@Model.ProduktId" class="btn btn-primary">Redigera</a>
+<a asp-action="Index" class="btn btn-secondary">Tillbaka</a>

@@ -1,0 +1,30 @@
+@model IEnumerable<MorMorsBageruMVC.Models.Lager>
+
+@{
+    ViewData["Title"] = "Lager";
+}
+
+<h1>Lager</h1>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Råvara</th>
+            <th>Mängd (kg)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var l in Model)
+        {
+            <tr>
+                <td>@l.Råvara?.Namn</td>
+                <td>@l.MängdKg</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@l.RåvaraId">Detaljer</a> |
+                    <a asp-action="Edit" asp-route-id="@l.RåvaraId">Redigera</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

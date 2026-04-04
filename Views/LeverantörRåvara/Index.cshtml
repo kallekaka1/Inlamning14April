@@ -1,0 +1,36 @@
+@model IEnumerable<MorMorsBageruMVC.Models.LeverantörRåvara>
+
+@{
+    ViewData["Title"] = "Leverantör ↔ Råvara";
+}
+
+<h1>Leverantör – Råvara</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Lägg till koppling</a>
+</p>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Leverantör</th>
+            <th>Råvara</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var lr in Model)
+        {
+            <tr>
+                <td>@lr.Leverantör?.Namn</td>
+                <td>@lr.Råvara?.Namn</td>
+                <td>
+                    <a asp-action="Details" asp-route-leverantörId="@lr.LeverantörId"
+                        asp-route-råvaraId="@lr.RåvaraId">Detaljer</a> |
+                    <a asp-action="Delete" asp-route-leverantörId="@lr.LeverantörId" asp-route-råvaraId="@lr.RåvaraId">Ta
+                        bort</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

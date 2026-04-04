@@ -1,0 +1,18 @@
+@model MorMorsBageruMVC.Models.LeverantörRåvara
+
+@{
+    ViewData["Title"] = "Redigera Koppling";
+}
+
+<h1>Redigera Koppling</h1>
+
+<form asp-action="Edit">
+
+    <input type="hidden" asp-for="LeverantörId" />
+    <input type="hidden" asp-for="RåvaraId" />
+
+    <p>Denna koppling kan egentligen inte redigeras – ta bort och skapa ny.</p>
+
+    <a asp-action="Index" class="btn btn-secondary">Tillbaka</a>
+
+</form>

@@ -1,0 +1,30 @@
+@model MorMorsBageruMVC.Models.ReceptRad
+
+@{
+    ViewData["Title"] = "ReceptRad Detaljer";
+}
+
+<h1>Recept-rad Detaljer</h1>
+
+<table class="table">
+    <tr>
+        <th>Recept ID</th>
+        <td>@Model.ReceptId</td>
+    </tr>
+    <tr>
+        <th>Produkt</th>
+        <td>@Model.Recept?.Produkt?.Namn</td>
+    </tr>
+    <tr>
+        <th>Råvara</th>
+        <td>@Model.Råvara?.Namn</td>
+    </tr>
+    <tr>
+        <th>Mängd (kg)</th>
+        <td>@Model.MängdKg</td>
+    </tr>
+</table>
+
+<a asp-action="Edit" asp-route-receptId="@Model.ReceptId" asp-route-råvaraId="@Model.RåvaraId"
+    class="btn btn-primary">Redigera</a>
+<a asp-action="Index" class="btn btn-secondary">Tillbaka</a>
