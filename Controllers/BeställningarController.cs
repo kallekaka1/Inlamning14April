@@ -38,7 +38,20 @@ namespace MorMorsBageruMVC.Controllers
             _context.Beställningar.Add(beställning);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(HämtaBeställning), new { id = beställning.BeställningId }, beställning);
+           return CreatedAtAction(nameof(HämtaBeställning), new { id = beställning.BeställningId }, new
+{
+    beställning.BeställningId,
+    beställning.Beställningsnummer,
+    beställning.Beställningsdatum,
+    beställning.KundId,
+    Rader = beställning.Rader.Select(r => new
+    {
+        r.ProduktId,
+        r.Antal,
+        r.Pris,
+        SummeratPris = r.Antal * r.Pris
+    })
+});
         }
 
         // GET: /api/bestallningar
@@ -65,7 +78,26 @@ namespace MorMorsBageruMVC.Controllers
             if (beställning == null)
                 return NotFound("Beställningen hittades inte.");
 
-            return beställning;
+           return Ok(new
+{
+    beställning.BeställningId,
+    beställning.Beställningsnummer,
+    beställning.Beställningsdatum,
+    Kund = new
+    {
+        beställning.Kund!.KundId,
+        beställning.Kund.Butiksnamn,
+        beställning.Kund.Kontaktperson
+    },
+    Rader = beställning.Rader.Select(r => new
+    {
+        r.ProduktId,
+        ProduktNamn = r.Produkt!.Namn,
+        r.Antal,
+        r.Pris,
+        SummeratPris = r.Antal * r.Pris
+    })
+});
         }
 
         // GET: /api/bestallningar/search?nummer=ORD-1001
