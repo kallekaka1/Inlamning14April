@@ -17,7 +17,16 @@
   <ItemGroup>
     <Content Remove="Views\**\*" />
     <None Include="Views\**\*" />
-    <None Remove="Views\**\*.cshtml.css" />
+    <None Remove="Views\_ViewImports.cshtml" />
+    <None Remove="Views\_ViewStart.cshtml" />
+    <None Remove="Views\Dashboard\**\*" />
+    <None Remove="Views\Home\**\*" />
+    <None Remove="Views\Shared\**\*" />
+    <Content Include="Views\_ViewImports.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Dashboard\**\*" />
+    <Content Include="Views\Home\**\*" />
+    <Content Include="Views\Shared\**\*" />
   </ItemGroup>
 
 </Project>

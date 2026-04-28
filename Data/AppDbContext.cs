@@ -20,6 +20,10 @@ namespace MorMorsBageruMVC.Data
         public DbSet<InköpsRad> InköpsRader => Set<InköpsRad>();
         public DbSet<LeverantörRåvara> LeverantörRåvaror => Set<LeverantörRåvara>();
 
+        public DbSet<Kund> Kunder => Set<Kund>();
+        public DbSet<Beställning> Beställningar => Set<Beställning>();
+        public DbSet<BeställningsRad> BeställningsRader => Set<BeställningsRad>();
+
         protected override void OnModelCreating(ModelBuilder model)
         {
             model.Entity<Leverantör>().ToTable("leverantorer");
@@ -32,6 +36,10 @@ namespace MorMorsBageruMVC.Data
             model.Entity<InköpsRad>().ToTable("inkops_rader");
             model.Entity<LeverantörRåvara>().ToTable("leverantor_ravara");
 
+            model.Entity<Kund>().ToTable("kunder");
+            model.Entity<Beställning>().ToTable("bestallningar");
+            model.Entity<BeställningsRad>().ToTable("bestallnings_rader");
+
             model.Entity<Lager>().HasKey(l => l.RåvaraId);
 
             model.Entity<ReceptRad>()
@@ -42,6 +50,9 @@ namespace MorMorsBageruMVC.Data
 
             model.Entity<LeverantörRåvara>()
                 .HasKey(lr => new { lr.LeverantörId, lr.RåvaraId });
+
+            model.Entity<BeställningsRad>()
+                .HasKey(br => new { br.BeställningId, br.ProduktId });
 
             model.Entity<Råvara>()
                 .HasOne(r => r.Lager)
@@ -59,8 +70,6 @@ namespace MorMorsBageruMVC.Data
                 .WithOne(i => i.Råvara)
                 .HasForeignKey(i => i.RåvaraId);
 
-        
-
             model.Entity<Leverantör>()
                 .HasMany(l => l.Inköp)
                 .WithOne(i => i.Leverantör)
@@ -75,6 +84,24 @@ namespace MorMorsBageruMVC.Data
                 .HasOne(lr => lr.Råvara)
                 .WithMany(r => r.LeverantörRåvaror)
                 .HasForeignKey(lr => lr.RåvaraId);
+
+            model.Entity<Kund>()
+                .HasMany(k => k.Beställningar)
+                .WithOne(b => b.Kund)
+                .HasForeignKey(b => b.KundId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            model.Entity<Beställning>()
+                .HasMany(b => b.Rader)
+                .WithOne(r => r.Beställning)
+                .HasForeignKey(r => r.BeställningId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            model.Entity<Produkt>()
+                .HasMany(p => p.BeställningsRader)
+                .WithOne(r => r.Produkt)
+                .HasForeignKey(r => r.ProduktId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
