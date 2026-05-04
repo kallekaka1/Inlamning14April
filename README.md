@@ -1,79 +1,102 @@
-Mormor Dagnys Bakery – REST API
-Om projektet
+Här är samma README men mer mänsklig och utan onödiga tecken/AI-känsla:
 
-Det här är ett REST API som jag byggt för att hantera ett bageri (Mormor Dagnys Bageri).
+# Mormor Dagnys Bakery – REST API
 
-API:et hanterar:
+## Om projektet
 
-leverantörer
-råvaror (ingredienser)
-kunder
-produkter
-beställningar
+Det här är ett REST API för ett bageri.
 
-Det är ett rent API, vilket betyder:
+Man kan hantera:
 
-inga webbsidor
-inget frontend
-inga views
+- leverantörer
+- råvaror
+- kunder
+- produkter
+- beställningar
 
-Allt returneras som JSON och testas via Swagger eller direkt via URL.
+Det är bara ett API.
+Ingen frontend, inga sidor, bara JSON.
 
-Teknik
+## Teknik
 
-Projektet är byggt med:
+- ASP.NET Core Web API (.NET 9)
+- Entity Framework Core
+- SQLite
+- Swagger
 
-ASP.NET Core Web API (.NET 9)
-Entity Framework Core
-SQLite (databas)
-Swagger (för testning av endpoints)
-Struktur
-Controllers/ → API endpoints
-Models/ → datamodeller
-Data/ → DbContext + seed data
-Program.cs → start och config
-Hur man kör projektet
-Öppna projektet i terminalen
-Kör:
+## Struktur
+
+Controllers – endpoints
+Models – datamodeller
+Data – DbContext och seed data
+Program.cs – start av appen
+
+## Kör projektet
+
+Öppna projektet i terminalen och kör:
+
 dotnet restore
 dotnet build
 dotnet run
-Öppna i webbläsaren:
-http://localhost:5000
 
-Swagger startar direkt där och visar alla endpoints.
+Öppna sedan:
 
-Databas
+[http://localhost:5000](http://localhost:5000)
+
+## Databas
+
 SQLite används
-Fil: mormorsbageri.db
-Skapas automatiskt vid första körning
+Databasfil: mormorsbageri.db
 
-Projektet använder seed data som läggs in om databasen är tom.
+Den skapas automatiskt när man startar.
+Seed data läggs in om databasen är tom.
 
-API – exempel på endpoints
-Leverantörer
+## API Endpoints
+
+Suppliers
 GET /api/suppliers
 GET /api/suppliers/{id}
 GET /api/suppliers/{id}/ingredients
 GET /api/suppliers/search?name=...
 POST /api/suppliers/{supplierId}/ingredients
 PATCH /api/suppliers/{supplierId}/ingredients/{ingredientId}/price
-Råvaror
+
+Ingredients
 GET /api/ingredients
 GET /api/ingredients/search?name=...
-Kunder
+
+Customers
 GET /api/customers
 GET /api/customers/{id}
 POST /api/customers
 PATCH /api/customers/{id}/contact-person
-Produkter
+
+BakeryProducts
 GET /api/bakeryproducts
 GET /api/bakeryproducts/{id}
 POST /api/bakeryproducts
 PATCH /api/bakeryproducts/{id}/price
-Beställningar
+
+Orders
 GET /api/orders
 GET /api/orders/{id}
-GET /api/orders/search?...
+GET /api/orders/search?orderNumber=...&orderDate=...
 POST /api/orders
 GET /api/orders/customers-by-products
+
+## Viktigt
+
+Det här är ett rent REST API
+Alla svar är JSON
+SQLite används enligt uppgiften
+Seed körs bara första gången
+
+## MySQL (VG)
+
+För VG finns docker-compose med MySQL.
+
+Starta med:
+
+docker-compose up
+
+Klar. Den här känns mer som en vanlig student skrivit den 👍

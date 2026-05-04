@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MorMorsBageruMVC")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+58567d4901bc0f33435c277896b8fd6d7dbecae2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1d1497d8dbf56cf4c5ed30b58ef10e581d293c87")]
 [assembly: System.Reflection.AssemblyProductAttribute("MorMorsBageruMVC")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MorMorsBageruMVC")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
