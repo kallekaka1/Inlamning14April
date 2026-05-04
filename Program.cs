@@ -1,101 +1,51 @@
 using Microsoft.EntityFrameworkCore;
 using MorMorsBageruMVC.Data;
-using MorMorsBageruMVC.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Services
-builder.Services.AddControllersWithViews();
+
+builder.Services.AddControllers();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+    {
+        Title = "Mormor Dagnys Bakery API",
+        Version = "v1",
+        Description = "REST API for managing suppliers, ingredients, customers, bakery products, and orders"
+    });
+});
+
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? "Data Source=mormorsbageri.db";
+
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite("Data Source=mormorsbageri.db"));
+    options.UseSqlite(connectionString));
 
 var app = builder.Build();
 
-// Skapa databasen om den inte finns
+
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-
-    db.Database.EnsureCreated();
-
-    if (!db.Leverantörer.Any())
-    {
-        var lev1 = new Leverantör
-        {
-            Namn = "ICA",
-            Adress = "Stockholm",
-            Kontaktperson = "Anna",
-            Telefon = "0701234567",
-            Epost = "ica@mail.se"
-        };
-
-        var lev2 = new Leverantör
-        {
-            Namn = "Coop",
-            Adress = "Göteborg",
-            Kontaktperson = "Erik",
-            Telefon = "0707654321",
-            Epost = "coop@mail.se"
-        };
-
-        var rav1 = new Råvara
-        {
-            Artikelnummer = "R001",
-            Namn = "Socker",
-            PrisPerKg = 12
-        };
-
-        var rav2 = new Råvara
-        {
-            Artikelnummer = "R002",
-            Namn = "Mjöl",
-            PrisPerKg = 8
-        };
-
-        db.Leverantörer.AddRange(lev1, lev2);
-        db.Råvaror.AddRange(rav1, rav2);
-        db.SaveChanges();
-
-        db.LeverantörRåvaror.AddRange(
-            new LeverantörRåvara
-            {
-                LeverantörId = lev1.LeverantörId,
-                RåvaraId = rav1.RåvaraId,
-                Pris = 12
-            },
-            new LeverantörRåvara
-            {
-                LeverantörId = lev2.LeverantörId,
-                RåvaraId = rav1.RåvaraId,
-                Pris = 10
-            },
-            new LeverantörRåvara
-            {
-                LeverantörId = lev1.LeverantörId,
-                RåvaraId = rav2.RåvaraId,
-                Pris = 8
-            }
-        );
-
-        db.SaveChanges();
-    }
+    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    DbInitializer.Initialize(context);
 }
 
-// Pipeline
-if (!app.Environment.IsDevelopment())
+
+if (app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
-    app.UseHsts();
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Mormor Dagnys API v1");
+        c.RoutePrefix = string.Empty; // Serve Swagger UI at root
+    });
 }
 
 app.UseHttpsRedirection();
-app.UseRouting();
 app.UseAuthorization();
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Dashboard}/{action=Index}/{id?}");
 
 app.MapControllers();
 
 app.Run();
+

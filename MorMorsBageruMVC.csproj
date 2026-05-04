@@ -12,21 +12,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Remove="Views\**\*" />
-    <None Include="Views\**\*" />
-    <None Remove="Views\_ViewImports.cshtml" />
-    <None Remove="Views\_ViewStart.cshtml" />
-    <None Remove="Views\Dashboard\**\*" />
-    <None Remove="Views\Home\**\*" />
-    <None Remove="Views\Shared\**\*" />
-    <Content Include="Views\_ViewImports.cshtml" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Dashboard\**\*" />
-    <Content Include="Views\Home\**\*" />
-    <Content Include="Views\Shared\**\*" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
 </Project>

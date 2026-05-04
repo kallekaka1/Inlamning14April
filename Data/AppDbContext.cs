@@ -10,98 +10,67 @@ namespace MorMorsBageruMVC.Data
         {
         }
 
-        public DbSet<Leverantör> Leverantörer => Set<Leverantör>();
-        public DbSet<Råvara> Råvaror => Set<Råvara>();
-        public DbSet<Produkt> Produkter => Set<Produkt>();
-        public DbSet<Recept> Recept => Set<Recept>();
-        public DbSet<ReceptRad> ReceptRader => Set<ReceptRad>();
-        public DbSet<Lager> Lager => Set<Lager>();
-        public DbSet<Inköp> Inköp => Set<Inköp>();
-        public DbSet<InköpsRad> InköpsRader => Set<InköpsRad>();
-        public DbSet<LeverantörRåvara> LeverantörRåvaror => Set<LeverantörRåvara>();
+        public DbSet<Supplier> Suppliers => Set<Supplier>();
+        public DbSet<Ingredient> Ingredients => Set<Ingredient>();
+        public DbSet<SupplierIngredient> SupplierIngredients => Set<SupplierIngredient>();
+        public DbSet<Customer> Customers => Set<Customer>();
+        public DbSet<BakeryProduct> BakeryProducts => Set<BakeryProduct>();
+        public DbSet<Order> Orders => Set<Order>();
+        public DbSet<OrderItem> OrderItems => Set<OrderItem>();
 
-        public DbSet<Kund> Kunder => Set<Kund>();
-        public DbSet<Beställning> Beställningar => Set<Beställning>();
-        public DbSet<BeställningsRad> BeställningsRader => Set<BeställningsRad>();
-
-        protected override void OnModelCreating(ModelBuilder model)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            model.Entity<Leverantör>().ToTable("leverantorer");
-            model.Entity<Råvara>().ToTable("ravaror");
-            model.Entity<Produkt>().ToTable("produkter");
-            model.Entity<Recept>().ToTable("recept");
-            model.Entity<ReceptRad>().ToTable("recept_rader");
-            model.Entity<Lager>().ToTable("lager");
-            model.Entity<Inköp>().ToTable("inkop");
-            model.Entity<InköpsRad>().ToTable("inkops_rader");
-            model.Entity<LeverantörRåvara>().ToTable("leverantor_ravara");
+            base.OnModelCreating(modelBuilder);
 
-            model.Entity<Kund>().ToTable("kunder");
-            model.Entity<Beställning>().ToTable("bestallningar");
-            model.Entity<BeställningsRad>().ToTable("bestallnings_rader");
+            // Table mappings
+            modelBuilder.Entity<Supplier>().ToTable("suppliers");
+            modelBuilder.Entity<Ingredient>().ToTable("ingredients");
+            modelBuilder.Entity<SupplierIngredient>().ToTable("supplier_ingredients");
+            modelBuilder.Entity<Customer>().ToTable("customers");
+            modelBuilder.Entity<BakeryProduct>().ToTable("bakery_products");
+            modelBuilder.Entity<Order>().ToTable("orders");
+            modelBuilder.Entity<OrderItem>().ToTable("order_items");
 
-            model.Entity<Lager>().HasKey(l => l.RåvaraId);
+            // SupplierIngredient - Composite Key
+            modelBuilder.Entity<SupplierIngredient>()
+                .HasKey(si => new { si.SupplierId, si.IngredientId });
 
-            model.Entity<ReceptRad>()
-                .HasKey(r => new { r.ReceptId, r.RåvaraId });
-
-            model.Entity<InköpsRad>()
-                .HasKey(r => new { r.InköpId, r.RåvaraId });
-
-            model.Entity<LeverantörRåvara>()
-                .HasKey(lr => new { lr.LeverantörId, lr.RåvaraId });
-
-            model.Entity<BeställningsRad>()
-                .HasKey(br => new { br.BeställningId, br.ProduktId });
-
-            model.Entity<Råvara>()
-                .HasOne(r => r.Lager)
-                .WithOne(l => l.Råvara)
-                .HasForeignKey<Lager>(l => l.RåvaraId)
+            // SupplierIngredient relationships
+            modelBuilder.Entity<SupplierIngredient>()
+                .HasOne(si => si.Supplier)
+                .WithMany(s => s.SupplierIngredients)
+                .HasForeignKey(si => si.SupplierId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            model.Entity<Råvara>()
-                .HasMany(r => r.ReceptRader)
-                .WithOne(rr => rr.Råvara)
-                .HasForeignKey(rr => rr.RåvaraId);
-
-            model.Entity<Råvara>()
-                .HasMany(r => r.InköpsRader)
-                .WithOne(i => i.Råvara)
-                .HasForeignKey(i => i.RåvaraId);
-
-            model.Entity<Leverantör>()
-                .HasMany(l => l.Inköp)
-                .WithOne(i => i.Leverantör)
-                .HasForeignKey(i => i.LeverantörId);
-
-            model.Entity<LeverantörRåvara>()
-                .HasOne(lr => lr.Leverantör)
-                .WithMany(l => l.LeverantörRåvaror)
-                .HasForeignKey(lr => lr.LeverantörId);
-
-            model.Entity<LeverantörRåvara>()
-                .HasOne(lr => lr.Råvara)
-                .WithMany(r => r.LeverantörRåvaror)
-                .HasForeignKey(lr => lr.RåvaraId);
-
-            model.Entity<Kund>()
-                .HasMany(k => k.Beställningar)
-                .WithOne(b => b.Kund)
-                .HasForeignKey(b => b.KundId)
+            modelBuilder.Entity<SupplierIngredient>()
+                .HasOne(si => si.Ingredient)
+                .WithMany(i => i.SupplierIngredients)
+                .HasForeignKey(si => si.IngredientId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            model.Entity<Beställning>()
-                .HasMany(b => b.Rader)
-                .WithOne(r => r.Beställning)
-                .HasForeignKey(r => r.BeställningId)
+            // OrderItem - Composite Key
+            modelBuilder.Entity<OrderItem>()
+                .HasKey(oi => new { oi.OrderId, oi.BakeryProductId });
+
+            // OrderItem relationships
+            modelBuilder.Entity<OrderItem>()
+                .HasOne(oi => oi.Order)
+                .WithMany(o => o.OrderItems)
+                .HasForeignKey(oi => oi.OrderId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            model.Entity<Produkt>()
-                .HasMany(p => p.BeställningsRader)
-                .WithOne(r => r.Produkt)
-                .HasForeignKey(r => r.ProduktId)
+            modelBuilder.Entity<OrderItem>()
+                .HasOne(oi => oi.BakeryProduct)
+                .WithMany(bp => bp.OrderItems)
+                .HasForeignKey(oi => oi.BakeryProductId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            // Order relationships
+            modelBuilder.Entity<Order>()
+                .HasOne(o => o.Customer)
+                .WithMany(c => c.Orders)
+                .HasForeignKey(o => o.CustomerId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
